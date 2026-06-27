@@ -1,0 +1,77 @@
+aid: travelperk
+name: TravelPerk
+review:
+  question: Does TravelPerk expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-25'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. TravelPerk's event-driven surface is
+    delivered via outbound HTTP webhooks (subscriptions to platform events such
+    as a new invoice or trip change), not via a streaming SSE or WebSocket
+    transport. Webhooks are modeled as REST endpoints in the OpenAPI document
+    rather than as an AsyncAPI channel.
+findings:
+  summary: |
+    TravelPerk does not publish a documented public WebSocket API. The
+    TravelPerk Open API is a REST (HTTPS) platform served under
+    https://api.travelperk.com, authenticated with an OAuth 2.0 access token
+    (or ApiKey) passed in the Authorization header with an Api-Version header.
+    Real-time
+    delivery is provided through outbound HTTP webhooks, which push event
+    notifications to a subscriber-registered URL. No realtime, bidirectional
+    WebSocket (ws:// or wss://) endpoint is documented for trips, invoices,
+    cost centers, members, or any other resource.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.travelperk.com
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound HTTP POST callbacks to a subscriber URL for platform events (e.g. new invoice). Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the TravelPerk developer portal as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://api.travelperk.com/trips
+    - GET  https://api.travelperk.com/trips/{id}
+    - GET  https://api.travelperk.com/trips/{trip_id}/custom-fields
+    - GET  https://api.travelperk.com/invoices
+    - GET  https://api.travelperk.com/invoices/{serial_number}
+    - GET  https://api.travelperk.com/invoices/{serial_number}/pdf
+    - GET  https://api.travelperk.com/invoices/lines
+    - GET  https://api.travelperk.com/profiles
+    - GET  https://api.travelperk.com/cost_centers
+    - POST https://api.travelperk.com/cost_centers
+    - GET  https://api.travelperk.com/cost_centers/{id}
+    - PATCH https://api.travelperk.com/cost_centers/{id}
+    - PUT  https://api.travelperk.com/cost_centers/{id}/users
+    - PATCH https://api.travelperk.com/cost_centers/bulk_update
+    - POST https://api.travelperk.com/scim/Users
+    - PUT  https://api.travelperk.com/scim/Users/{id}
+    - PATCH https://api.travelperk.com/scim/Users/{id}
+    - GET  https://api.travelperk.com/scim/Schemas/User
+    - POST https://api.travelperk.com/webhooks
+    - PATCH https://api.travelperk.com/webhooks/{id}
+sources:
+  - url: https://developers.travelperk.com/docs
+    type: Documentation
+    note: Developer hub describes the OAuth 2.0 + Bearer REST Open API; no WebSocket mentioned.
+  - url: https://developers.travelperk.com/reference
+    type: APIReference
+    note: All documented endpoints are HTTPS REST grouped by trips, invoices, cost centers, SCIM users, and webhooks.
+  - url: https://support.travelperk.com/hc/en-us/articles/4407267193620-Developer-features
+    type: Documentation
+    note: Describes webhooks as event subscriptions (e.g. new invoice) delivered as outbound callbacks, not WebSocket.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and the event-driven surface is
+    outbound HTTP webhooks rather than an SSE or WebSocket stream. The webhook
+    create/update endpoints are represented in the OpenAPI document; no
+    AsyncAPI document was authored.

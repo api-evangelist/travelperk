@@ -1,0 +1,857 @@
+openapi: 3.0.1
+info:
+  title: TravelPerk API
+  description: >-
+    Specification of the TravelPerk Open API. TravelPerk is a business-travel
+    management platform; its REST API exposes trips and bookings, invoices and
+    invoice lines, invoice profiles, cost centers, traveler/member provisioning
+    (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0
+    access token (or API key) passed in the Authorization header, and an
+    `Api-Version` header selects the API version.
+  termsOfService: https://www.travelperk.com/legal/terms-of-service/
+  contact:
+    name: TravelPerk Developer Support
+    url: https://developers.travelperk.com
+  version: '1'
+servers:
+  - url: https://api.travelperk.com
+    description: TravelPerk production API
+  - url: https://api.sandbox-travelperk.com
+    description: TravelPerk sandbox API
+security:
+  - bearerAuth: []
+  - apiKeyAuth: []
+tags:
+  - name: Trips
+    description: Trips, bookings, and trip custom fields.
+  - name: Invoices
+    description: Invoices, invoice lines, invoice profiles, and PDFs.
+  - name: Cost Centers
+    description: Cost center management and user assignment.
+  - name: Members
+    description: Traveler and member provisioning via SCIM 2.0.
+  - name: Webhooks
+    description: Event subscriptions.
+paths:
+  /trips:
+    get:
+      operationId: listTrips
+      tags:
+        - Trips
+      summary: List all trips
+      description: >-
+        Lists trips in descending order of `modified` time. Filters such as
+        `traveller_id` and trip status may be supplied as query parameters.
+      parameters:
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+        - name: traveller_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Filter trips by the ID of a traveler on the trip.
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of trips.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripList'
+  /trips/{id}:
+    get:
+      operationId: getTrip
+      tags:
+        - Trips
+      summary: Retrieve a trip by ID
+      description: Get a single trip with the trip ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      responses:
+        '200':
+          description: The requested trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '404':
+          description: Trip not found.
+  /trips/{trip_id}/custom-fields:
+    get:
+      operationId: getTripCustomFields
+      tags:
+        - Trips
+      summary: Retrieve custom fields
+      description: Get all custom field values associated with a trip.
+      parameters:
+        - name: trip_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      responses:
+        '200':
+          description: Custom field values for the trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomFieldList'
+  /invoices:
+    get:
+      operationId: listInvoices
+      tags:
+        - Invoices
+      summary: List all invoices
+      description: >-
+        Get a list of invoices; filters may be added as query parameters. Only
+        invoices issued on or after January 1st 2019 are returned.
+      parameters:
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+        - name: profile_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of invoices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceList'
+  /invoices/{serial_number}:
+    get:
+      operationId: getInvoice
+      tags:
+        - Invoices
+      summary: Retrieve an invoice
+      description: Get invoice detail by serial number.
+      parameters:
+        - name: serial_number
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      responses:
+        '200':
+          description: The requested invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /invoices/{serial_number}/pdf:
+    get:
+      operationId: downloadInvoicePdf
+      tags:
+        - Invoices
+      summary: Retrieve invoice PDF
+      description: Download an invoice in PDF format.
+      parameters:
+        - name: serial_number
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      responses:
+        '200':
+          description: The invoice as a PDF document.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /invoices/lines:
+    get:
+      operationId: listInvoiceLines
+      tags:
+        - Invoices
+      summary: List all invoice lines
+      description: >-
+        Get a list of invoice lines; filters may be added as query parameters.
+        Returns InvoiceLineExtended models. Only invoices issued on or after
+        January 1st 2019 are returned.
+      parameters:
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+        - name: serial_number
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of invoice lines.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceLineList'
+  /profiles:
+    get:
+      operationId: listInvoiceProfiles
+      tags:
+        - Invoices
+      summary: List all invoice profiles
+      description: List all invoice profiles associated with this account.
+      parameters:
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      responses:
+        '200':
+          description: A list of invoice profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvoiceProfile'
+  /cost_centers:
+    get:
+      operationId: listCostCenters
+      tags:
+        - Cost Centers
+      summary: List all cost centers
+      description: >-
+        Lists all cost centers in your organization. Returns a paginated list
+        with offset and limit controls.
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of cost centers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenterList'
+    post:
+      operationId: createCostCenter
+      tags:
+        - Cost Centers
+      summary: Create cost center
+      description: >-
+        Creates a cost center with the specified name. You can optionally set an
+        approver, delegate, and delegate expiry date.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostCenterInput'
+      responses:
+        '201':
+          description: The created cost center.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+  /cost_centers/bulk_update:
+    patch:
+      operationId: bulkUpdateCostCenters
+      tags:
+        - Cost Centers
+      summary: Bulk update cost centers
+      description: >-
+        Archives or unarchives a list of cost centers in a single request.
+        Returns the number of cost centers updated.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cost_center_ids:
+                  type: array
+                  items:
+                    type: string
+                archived:
+                  type: boolean
+      responses:
+        '200':
+          description: The number of cost centers updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  updated:
+                    type: integer
+  /cost_centers/{id}:
+    get:
+      operationId: getCostCenter
+      tags:
+        - Cost Centers
+      summary: Get cost center
+      description: >-
+        Retrieves a cost center by its ID, including assigned users, approver,
+        delegate, and company scope.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested cost center.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+    patch:
+      operationId: updateCostCenter
+      tags:
+        - Cost Centers
+      summary: Update cost center
+      description: >-
+        Updates a cost center. You can update the name, archive status,
+        approver, delegate, and delegate expiry.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostCenterInput'
+      responses:
+        '200':
+          description: The updated cost center.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+  /cost_centers/{id}/users:
+    put:
+      operationId: setCostCenterUsers
+      tags:
+        - Cost Centers
+      summary: Set users to a cost center
+      description: >-
+        Replaces all users assigned to the cost center with the provided list.
+        Any users not in the list are removed from the cost center.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        '200':
+          description: The updated cost center with its user assignments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+  /scim/Users:
+    post:
+      operationId: createScimUser
+      tags:
+        - Members
+      summary: Create a new user
+      description: Creates a new user (traveler/member) in TravelPerk via SCIM 2.0.
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+      responses:
+        '201':
+          description: The created SCIM user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+  /scim/Users/{id}:
+    put:
+      operationId: replaceScimUser
+      tags:
+        - Members
+      summary: Replace a user
+      description: Replaces all of a user's attributes.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+      responses:
+        '200':
+          description: The replaced SCIM user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+    patch:
+      operationId: updateScimUser
+      tags:
+        - Members
+      summary: Update a user
+      description: >-
+        Updates attributes for an existing user, overwriting values for
+        specified attributes. Attributes not provided remain unchanged.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: The updated SCIM user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+  /scim/Schemas/User:
+    get:
+      operationId: getUserSchema
+      tags:
+        - Members
+      summary: Get the user schema
+      description: Lists all attributes of the user schema.
+      responses:
+        '200':
+          description: The SCIM user schema.
+          content:
+            application/scim+json:
+              schema:
+                type: object
+  /webhooks:
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Create a webhook endpoint
+      description: >-
+        Subscribes to one or more events. The target URL of the webhook must be
+        unique for the account.
+      parameters:
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '201':
+          description: The created webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '409':
+          description: A subscription with this target URL already exists.
+  /webhooks/{id}:
+    patch:
+      operationId: updateWebhook
+      tags:
+        - Webhooks
+      summary: Update a webhook endpoint
+      description: >-
+        Updates the webhook endpoint. You may edit the url, the list of events,
+        status, secret, or name. The target URL must be unique for the account;
+        if it is not unique an HTTP 409 is returned.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Api-Version
+          in: header
+          required: true
+          schema:
+            type: string
+            default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: The updated webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '409':
+          description: A subscription with this target URL already exists.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+      description: >-
+        OAuth 2.0 access token obtained via the Authorization Code grant,
+        passed as `Authorization: Bearer <token>`.
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: >-
+        Personal API key passed as `Authorization: ApiKey <key>` for
+        customer (non-partner) integrations.
+  schemas:
+    TripList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trip'
+        next:
+          type: string
+    Trip:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum:
+            - confirmed
+            - cancelled
+        traveller_name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        modified:
+          type: string
+          format: date-time
+    CustomFieldList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    InvoiceList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        next:
+          type: string
+    Invoice:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          example: INV-01-987654
+        profile_id:
+          type: string
+        profile_name:
+          type: string
+        mode:
+          type: string
+        status:
+          type: string
+          example: paid
+        issuing_date:
+          type: string
+          format: date
+        currency:
+          type: string
+          example: EUR
+        total:
+          type: string
+          example: '13579.24'
+        pdf:
+          type: string
+          format: uri
+    InvoiceLineList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLine'
+        next:
+          type: string
+    InvoiceLine:
+      type: object
+      properties:
+        serial_number:
+          type: string
+        service:
+          type: string
+        quantity:
+          type: number
+        unit_price:
+          type: string
+        tax:
+          type: string
+    InvoiceProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        legal_name:
+          type: string
+        vat_number:
+          type: string
+    CostCenterList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostCenter'
+    CostCenter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        archived:
+          type: boolean
+        approver_id:
+          type: integer
+        delegate_id:
+          type: integer
+        delegate_expiry:
+          type: string
+          format: date
+        users:
+          type: array
+          items:
+            type: integer
+    CostCenterInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        archived:
+          type: boolean
+        approver_id:
+          type: integer
+        delegate_id:
+          type: integer
+        delegate_expiry:
+          type: string
+          format: date
+    ScimUser:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          example:
+            - urn:ietf:params:scim:schemas:core:2.0:User
+        userName:
+          type: string
+        name:
+          type: object
+          properties:
+            givenName:
+              type: string
+            familyName:
+              type: string
+        emails:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              primary:
+                type: boolean
+        active:
+          type: boolean
+        locale:
+          type: string
+    WebhookInput:
+      type: object
+      required:
+        - name
+        - url
+        - events
+      properties:
+        name:
+          type: string
+          example: invoice webhook
+        url:
+          type: string
+          format: uri
+          description: Target URL where notification JSON payloads will be POSTed.
+        secret:
+          type: string
+        events:
+          type: array
+          items:
+            type: string
+          example:
+            - invoice.issued
+            - trip.created
+        status:
+          type: string
+          enum:
+            - enabled
+            - disabled
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        status:
+          type: string

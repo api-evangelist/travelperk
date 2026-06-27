@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TravelPerk API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trips",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all trips", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/trips" },
+          "docs": "Lists trips in descending order of modified time."
+        },
+        {
+          "info": { "name": "Retrieve a trip by ID", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/trips/{id}" },
+          "docs": "Get a single trip with the trip ID."
+        },
+        {
+          "info": { "name": "Retrieve trip custom fields", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/trips/{trip_id}/custom-fields" },
+          "docs": "Get all custom field values associated with a trip."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all invoices", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/invoices" },
+          "docs": "Get a list of invoices issued on or after January 1st 2019."
+        },
+        {
+          "info": { "name": "Retrieve an invoice", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/invoices/{serial_number}" },
+          "docs": "Get invoice detail by serial number."
+        },
+        {
+          "info": { "name": "Retrieve invoice PDF", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/invoices/{serial_number}/pdf" },
+          "docs": "Download an invoice in PDF format."
+        },
+        {
+          "info": { "name": "List all invoice lines", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/invoices/lines" },
+          "docs": "Get a list of invoice lines."
+        },
+        {
+          "info": { "name": "List all invoice profiles", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/profiles" },
+          "docs": "List all invoice profiles associated with this account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cost Centers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all cost centers", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/cost_centers" },
+          "docs": "Lists all cost centers in your organization."
+        },
+        {
+          "info": { "name": "Create cost center", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.travelperk.com/cost_centers", "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a cost center with the specified name."
+        },
+        {
+          "info": { "name": "Bulk update cost centers", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.travelperk.com/cost_centers/bulk_update", "body": { "type": "json", "data": "{}" } },
+          "docs": "Archives or unarchives a list of cost centers in a single request."
+        },
+        {
+          "info": { "name": "Get cost center", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/cost_centers/{id}" },
+          "docs": "Retrieves a cost center by its ID."
+        },
+        {
+          "info": { "name": "Update cost center", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.travelperk.com/cost_centers/{id}", "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates a cost center."
+        },
+        {
+          "info": { "name": "Set users to a cost center", "type": "http" },
+          "http": { "method": "PUT", "url": "https://api.travelperk.com/cost_centers/{id}/users", "body": { "type": "json", "data": "{}" } },
+          "docs": "Replaces all users assigned to the cost center."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Members (SCIM)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create a new user", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.travelperk.com/scim/Users", "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new user (traveler/member) via SCIM 2.0."
+        },
+        {
+          "info": { "name": "Replace a user", "type": "http" },
+          "http": { "method": "PUT", "url": "https://api.travelperk.com/scim/Users/{id}", "body": { "type": "json", "data": "{}" } },
+          "docs": "Replaces all of a user's attributes."
+        },
+        {
+          "info": { "name": "Update a user", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.travelperk.com/scim/Users/{id}", "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates attributes for an existing user."
+        },
+        {
+          "info": { "name": "Get the user schema", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.travelperk.com/scim/Schemas/User" },
+          "docs": "Lists all attributes of the user schema."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create a webhook endpoint", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.travelperk.com/webhooks", "body": { "type": "json", "data": "{}" } },
+          "docs": "Subscribes to one or more events."
+        },
+        {
+          "info": { "name": "Update a webhook endpoint", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.travelperk.com/webhooks/{id}", "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates the webhook endpoint."
+        }
+      ]
+    }
+  ]
+}

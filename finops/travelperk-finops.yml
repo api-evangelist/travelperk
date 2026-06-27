@@ -1,0 +1,102 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: TravelPerk
+providerId: travelperk
+created: '2026-06-25'
+modified: '2026-06-25'
+reconciled: false
+tags:
+- Business Travel
+- Travel Management
+- Expenses
+- Invoices
+- Bookings
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of TravelPerk spend. TravelPerk bills via a sales-led
+  subscription (plan tier) plus per-booking and optional add-on charges
+  (e.g. FlexiPerk, GreenPerk). The Open API itself does not meter API calls
+  for billing; instead the Invoices and Expenses APIs surface the underlying
+  travel spend - invoices, invoice lines, and cost-center allocations - that
+  feeds chargeback, accounting, and budget tracking. Exact prices are
+  quote-based and not reconciled in this artifact.
+notes: >-
+  TravelPerk pricing is quote-based; verify subscription tier costs,
+  per-booking fees, and add-on rates with TravelPerk during reconciliation.
+  Use the Invoices / Invoice Lines / Cost Centers APIs to allocate and report
+  actual travel spend.
+sources:
+- https://www.travelperk.com/pricing/
+- https://developers.travelperk.com/docs
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: TravelPerk
+serviceCategory: Business Travel Management
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: TravelPerk
+  ServiceCategory: Business Travel Management
+  ProviderName: TravelPerk
+  PublisherName: TravelPerk
+  InvoiceIssuerName: TravelPerk
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: subscription
+  description: Recurring plan-tier subscription fee billed per period.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: bookings
+  description: Travel bookings made through the platform, billed per booking.
+  unit: bookings
+  aggregation: sum
+  dimensions:
+  - account
+  - traveller
+  - cost_center
+- name: invoice_amount
+  description: Billed travel spend captured on invoices and invoice lines.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - invoice
+  - cost_center
+- name: add_on_charges
+  description: Optional add-on charges such as FlexiPerk and GreenPerk.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - add_on
+principles:
+- name: Visibility
+  description: Pull invoices and invoice lines via the Invoices API to see actual travel spend.
+- name: Allocation
+  description: Use the Cost Centers API to tag bookings and invoice lines to teams, projects, and budgets.
+- name: Optimization
+  description: Apply travel policies, review add-on usage (FlexiPerk/GreenPerk), and reconcile against budgets per cost center.
+- name: Accountability
+  description: Assign cost-center owners and review monthly travel spend against budget by team and traveller.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

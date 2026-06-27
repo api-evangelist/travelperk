@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: TravelPerk
+providerId: travelperk
+created: '2026-06-25'
+modified: '2026-06-25'
+reconciled: false
+tags:
+- Business Travel
+- Travel Management
+- Expenses
+- Invoices
+- Bookings
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The TravelPerk Open API applies per-application rate limiting to protect the
+  platform, returning HTTP 429 when limits are exceeded. List endpoints
+  (trips, invoices, invoice lines, cost centers) are paginated to bound result
+  sizes. Specific per-endpoint request-per-minute and daily quota values are
+  not publicly published and are not reconciled in this artifact.
+notes: >-
+  Confirm the current per-application request limits, pagination page sizes,
+  and any Retry-After / rate-limit response headers in the TravelPerk developer
+  documentation during reconciliation; limits may differ by plan tier and
+  endpoint.
+sources:
+- https://developers.travelperk.com/docs
+- https://developers.travelperk.com/reference
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per Application
+  scope: application
+  metric: requests
+  limit: see provider documentation
+  notes: Per-application request rate limit; specific value not publicly published.
+- name: Pagination
+  scope: endpoint
+  metric: records
+  limit: see provider documentation
+  notes: List endpoints are paginated; page size and max limit per page vary by endpoint.
+- name: SCIM Provisioning
+  scope: application
+  metric: requests
+  limit: see provider documentation
+  notes: SCIM 2.0 endpoints (Premium) use a separate token and may have distinct limits.
+policies:
+- name: Tiered Access
+  description: API, SCIM, and webhook access is gated by plan tier (e.g. Premium / Pro).
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

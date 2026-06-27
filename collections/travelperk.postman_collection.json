@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "TravelPerk API",
+    "description": "TravelPerk Open API - trips and bookings, invoices and invoice lines, cost centers, SCIM member provisioning, and webhooks. Authenticate with an OAuth 2.0 access token as a Bearer token in the Authorization header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.travelperk.com", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Trips",
+      "item": [
+        {
+          "name": "List all trips",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/trips", "host": [ "{{baseUrl}}" ], "path": [ "trips" ] }
+          }
+        },
+        {
+          "name": "Retrieve a trip by ID",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/trips/:id", "host": [ "{{baseUrl}}" ], "path": [ "trips", ":id" ] }
+          }
+        },
+        {
+          "name": "Retrieve trip custom fields",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/trips/:trip_id/custom-fields", "host": [ "{{baseUrl}}" ], "path": [ "trips", ":trip_id", "custom-fields" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invoices",
+      "item": [
+        {
+          "name": "List all invoices",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/invoices", "host": [ "{{baseUrl}}" ], "path": [ "invoices" ] }
+          }
+        },
+        {
+          "name": "Retrieve an invoice",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/invoices/:serial_number", "host": [ "{{baseUrl}}" ], "path": [ "invoices", ":serial_number" ] }
+          }
+        },
+        {
+          "name": "Retrieve invoice PDF",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" }, { "key": "Accept", "value": "application/pdf" } ],
+            "url": { "raw": "{{baseUrl}}/invoices/:serial_number/pdf", "host": [ "{{baseUrl}}" ], "path": [ "invoices", ":serial_number", "pdf" ] }
+          }
+        },
+        {
+          "name": "List all invoice lines",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/invoices/lines", "host": [ "{{baseUrl}}" ], "path": [ "invoices", "lines" ] }
+          }
+        },
+        {
+          "name": "List all invoice profiles",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Api-Version", "value": "1" } ],
+            "url": { "raw": "{{baseUrl}}/profiles", "host": [ "{{baseUrl}}" ], "path": [ "profiles" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cost Centers",
+      "item": [
+        {
+          "name": "List all cost centers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/cost_centers", "host": [ "{{baseUrl}}" ], "path": [ "cost_centers" ] }
+          }
+        },
+        {
+          "name": "Create cost center",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/cost_centers", "host": [ "{{baseUrl}}" ], "path": [ "cost_centers" ] }
+          }
+        },
+        {
+          "name": "Bulk update cost centers",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"cost_center_ids\": [],\n  \"archived\": true\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/cost_centers/bulk_update", "host": [ "{{baseUrl}}" ], "path": [ "cost_centers", "bulk_update" ] }
+          }
+        },
+        {
+          "name": "Get cost center",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/cost_centers/:id", "host": [ "{{baseUrl}}" ], "path": [ "cost_centers", ":id" ] }
+          }
+        },
+        {
+          "name": "Update cost center",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/cost_centers/:id", "host": [ "{{baseUrl}}" ], "path": [ "cost_centers", ":id" ] }
+          }
+        },
+        {
+          "name": "Set users to a cost center",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"user_ids\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/cost_centers/:id/users", "host": [ "{{baseUrl}}" ], "path": [ "cost_centers", ":id", "users" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Members (SCIM)",
+      "item": [
+        {
+          "name": "Create a new user",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/scim+json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"userName\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/scim/Users", "host": [ "{{baseUrl}}" ], "path": [ "scim", "Users" ] }
+          }
+        },
+        {
+          "name": "Replace a user",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/scim+json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"]\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/scim/Users/:id", "host": [ "{{baseUrl}}" ], "path": [ "scim", "Users", ":id" ] }
+          }
+        },
+        {
+          "name": "Update a user",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Content-Type", "value": "application/scim+json" } ],
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/scim/Users/:id", "host": [ "{{baseUrl}}" ], "path": [ "scim", "Users", ":id" ] }
+          }
+        },
+        {
+          "name": "Get the user schema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/scim/Schemas/User", "host": [ "{{baseUrl}}" ], "path": [ "scim", "Schemas", "User" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Create a webhook endpoint",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Api-Version", "value": "1" }, { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"url\": \"<string>\",\n  \"events\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": [ "{{baseUrl}}" ], "path": [ "webhooks" ] }
+          }
+        },
+        {
+          "name": "Update a webhook endpoint",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Api-Version", "value": "1" }, { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks/:id", "host": [ "{{baseUrl}}" ], "path": [ "webhooks", ":id" ] }
+          }
+        }
+      ]
+    }
+  ]
+}

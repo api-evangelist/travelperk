@@ -1,0 +1,125 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: TravelPerk
+providerId: travelperk
+created: '2026-06-25'
+modified: '2026-06-25'
+reconciled: false
+tags:
+- Business Travel
+- Travel Management
+- Expenses
+- Invoices
+- Bookings
+- Plans
+description: >-
+  TravelPerk is sold as a subscription business-travel management platform with
+  sales-led, quote-based pricing rather than a public self-service price list.
+  The platform is offered across product tiers (commonly Starter, Premium, and
+  Pro / enterprise), and API and developer features such as the Open API,
+  webhooks, SCIM provisioning, and the sandbox are gated to higher tiers.
+  Booking itself is typically priced per trip booked plus optional add-ons
+  (e.g. FlexiPerk, GreenPerk). Specific plan prices are not publicly published
+  and are not reconciled in this artifact.
+notes: >-
+  TravelPerk does not publish a fixed public API price list; plan names, tier
+  thresholds, and prices are quote-based and change over time. Verify the
+  current tiers, API/SCIM gating, and any per-booking fees with TravelPerk
+  sales during reconciliation.
+sources:
+- https://www.travelperk.com/pricing/
+- https://developers.travelperk.com/docs
+- https://support.travelperk.com/hc/en-us/articles/4407267193620-Developer-features
+plans:
+- id: travelperk-starter
+  name: Starter
+  type: subscription
+  description: >-
+    Entry tier for smaller teams. Core booking and management features; advanced
+    API, SCIM, and webhook capabilities are generally limited or unavailable at
+    this tier.
+  entries:
+  - label: Subscription
+    name: starter
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Trip Booking
+  - name: Trips API (limited)
+- id: travelperk-premium
+  name: Premium
+  type: subscription
+  description: >-
+    Mid tier adding advanced controls and integrations, including SCIM 2.0 user
+    provisioning and broader API access for finance and HR data exchange.
+  entries:
+  - label: Subscription
+    name: premium
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Open API Access
+  - name: Invoices & Expenses API
+  - name: Cost Centers API
+  - name: SCIM 2.0 Provisioning
+  - name: Webhooks
+- id: travelperk-pro
+  name: Pro / Enterprise
+  type: enterprise
+  description: >-
+    Top tier with full Pro feature access, the developer sandbox, advanced
+    reporting, and negotiated terms for larger organizations. Contact TravelPerk
+    sales.
+  entries:
+  - label: Enterprise Agreement
+    name: pro
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Full API Access
+  - name: Developer Sandbox
+  - name: Scheduled Reports
+  - name: Dedicated Support
+- id: travelperk-add-ons
+  name: Add-ons
+  type: usage
+  description: >-
+    Optional usage-based add-ons layered on a subscription, such as flexible
+    bookings (FlexiPerk) and carbon offsetting (GreenPerk). Pricing varies and
+    is quote-based.
+  entries:
+  - label: Per-Booking & Add-on Fees
+    name: add_ons
+    type: usage
+    metric: bookings
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: FlexiPerk
+  - name: GreenPerk
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
