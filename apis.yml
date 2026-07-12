@@ -156,6 +156,12 @@ apis:
     - by creating and updating webhook endpoints that push real-time notifications
     to your application.
 common:
+- type: VulnerabilityDisclosure
+  url: security/travelperk-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/travelperk-domain-security.yml
+- type: Authentication
+  url: authentication/travelperk-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/travelperk
 - type: LinkedIn

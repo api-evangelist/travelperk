@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/travelperk-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: token
+  description: 'OAuth 2.0 access token obtained via the Authorization Code grant, passed as
+    `Authorization: Bearer <token>`.'
+  sources:
+  - openapi/travelperk-openapi.yml
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'Personal API key passed as `Authorization: ApiKey <key>` for customer (non-partner)
+    integrations.'
+  sources:
+  - openapi/travelperk-openapi.yml
