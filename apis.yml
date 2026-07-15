@@ -156,6 +156,8 @@ apis:
     - by creating and updating webhook endpoints that push real-time notifications
     to your application.
 common:
+- type: AgenticAccess
+  url: agentic-access/travelperk-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/travelperk-vulnerability-disclosure.yml
 - type: DomainSecurity
