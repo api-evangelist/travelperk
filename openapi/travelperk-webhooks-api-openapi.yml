@@ -1,0 +1,141 @@
+openapi: 3.0.1
+info:
+  title: TravelPerk Cost Centers Webhooks API
+  description: Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.
+  termsOfService: https://www.travelperk.com/legal/terms-of-service/
+  contact:
+    name: TravelPerk Developer Support
+    url: https://developers.travelperk.com
+  version: '1'
+servers:
+- url: https://api.travelperk.com
+  description: TravelPerk production API
+- url: https://api.sandbox-travelperk.com
+  description: TravelPerk sandbox API
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Webhooks
+  description: Event subscriptions.
+paths:
+  /webhooks:
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a webhook endpoint
+      description: Subscribes to one or more events. The target URL of the webhook must be unique for the account.
+      parameters:
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '201':
+          description: The created webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '409':
+          description: A subscription with this target URL already exists.
+  /webhooks/{id}:
+    patch:
+      operationId: updateWebhook
+      tags:
+      - Webhooks
+      summary: Update a webhook endpoint
+      description: Updates the webhook endpoint. You may edit the url, the list of events, status, secret, or name. The target URL must be unique for the account; if it is not unique an HTTP 409 is returned.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: The updated webhook subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '409':
+          description: A subscription with this target URL already exists.
+components:
+  schemas:
+    WebhookInput:
+      type: object
+      required:
+      - name
+      - url
+      - events
+      properties:
+        name:
+          type: string
+          example: invoice webhook
+        url:
+          type: string
+          format: uri
+          description: Target URL where notification JSON payloads will be POSTed.
+        secret:
+          type: string
+        events:
+          type: array
+          items:
+            type: string
+          example:
+          - invoice.issued
+          - trip.created
+        status:
+          type: string
+          enum:
+          - enabled
+          - disabled
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+      description: 'OAuth 2.0 access token obtained via the Authorization Code grant, passed as `Authorization: Bearer <token>`.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Personal API key passed as `Authorization: ApiKey <key>` for customer (non-partner) integrations.'

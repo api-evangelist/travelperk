@@ -1,0 +1,254 @@
+openapi: 3.0.1
+info:
+  title: TravelPerk Cost Centers Invoices API
+  description: Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.
+  termsOfService: https://www.travelperk.com/legal/terms-of-service/
+  contact:
+    name: TravelPerk Developer Support
+    url: https://developers.travelperk.com
+  version: '1'
+servers:
+- url: https://api.travelperk.com
+  description: TravelPerk production API
+- url: https://api.sandbox-travelperk.com
+  description: TravelPerk sandbox API
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Invoices
+  description: Invoices, invoice lines, invoice profiles, and PDFs.
+paths:
+  /invoices:
+    get:
+      operationId: listInvoices
+      tags:
+      - Invoices
+      summary: List all invoices
+      description: Get a list of invoices; filters may be added as query parameters. Only invoices issued on or after January 1st 2019 are returned.
+      parameters:
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      - name: profile_id
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A paginated list of invoices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceList'
+  /invoices/{serial_number}:
+    get:
+      operationId: getInvoice
+      tags:
+      - Invoices
+      summary: Retrieve an invoice
+      description: Get invoice detail by serial number.
+      parameters:
+      - name: serial_number
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: The requested invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /invoices/{serial_number}/pdf:
+    get:
+      operationId: downloadInvoicePdf
+      tags:
+      - Invoices
+      summary: Retrieve invoice PDF
+      description: Download an invoice in PDF format.
+      parameters:
+      - name: serial_number
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: The invoice as a PDF document.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /invoices/lines:
+    get:
+      operationId: listInvoiceLines
+      tags:
+      - Invoices
+      summary: List all invoice lines
+      description: Get a list of invoice lines; filters may be added as query parameters. Returns InvoiceLineExtended models. Only invoices issued on or after January 1st 2019 are returned.
+      parameters:
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      - name: serial_number
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A paginated list of invoice lines.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceLineList'
+  /profiles:
+    get:
+      operationId: listInvoiceProfiles
+      tags:
+      - Invoices
+      summary: List all invoice profiles
+      description: List all invoice profiles associated with this account.
+      parameters:
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: A list of invoice profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvoiceProfile'
+components:
+  schemas:
+    InvoiceList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        next:
+          type: string
+    InvoiceLineList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLine'
+        next:
+          type: string
+    InvoiceProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        legal_name:
+          type: string
+        vat_number:
+          type: string
+    InvoiceLine:
+      type: object
+      properties:
+        serial_number:
+          type: string
+        service:
+          type: string
+        quantity:
+          type: number
+        unit_price:
+          type: string
+        tax:
+          type: string
+    Invoice:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          example: INV-01-987654
+        profile_id:
+          type: string
+        profile_name:
+          type: string
+        mode:
+          type: string
+        status:
+          type: string
+          example: paid
+        issuing_date:
+          type: string
+          format: date
+        currency:
+          type: string
+          example: EUR
+        total:
+          type: string
+          example: '13579.24'
+        pdf:
+          type: string
+          format: uri
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+      description: 'OAuth 2.0 access token obtained via the Authorization Code grant, passed as `Authorization: Bearer <token>`.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Personal API key passed as `Authorization: ApiKey <key>` for customer (non-partner) integrations.'

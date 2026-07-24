@@ -1,0 +1,150 @@
+openapi: 3.0.1
+info:
+  title: TravelPerk Cost Centers Members API
+  description: Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.
+  termsOfService: https://www.travelperk.com/legal/terms-of-service/
+  contact:
+    name: TravelPerk Developer Support
+    url: https://developers.travelperk.com
+  version: '1'
+servers:
+- url: https://api.travelperk.com
+  description: TravelPerk production API
+- url: https://api.sandbox-travelperk.com
+  description: TravelPerk sandbox API
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Members
+  description: Traveler and member provisioning via SCIM 2.0.
+paths:
+  /scim/Users:
+    post:
+      operationId: createScimUser
+      tags:
+      - Members
+      summary: Create a new user
+      description: Creates a new user (traveler/member) in TravelPerk via SCIM 2.0.
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+      responses:
+        '201':
+          description: The created SCIM user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+  /scim/Users/{id}:
+    put:
+      operationId: replaceScimUser
+      tags:
+      - Members
+      summary: Replace a user
+      description: Replaces all of a user's attributes.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+      responses:
+        '200':
+          description: The replaced SCIM user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+    patch:
+      operationId: updateScimUser
+      tags:
+      - Members
+      summary: Update a user
+      description: Updates attributes for an existing user, overwriting values for specified attributes. Attributes not provided remain unchanged.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: The updated SCIM user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+  /scim/Schemas/User:
+    get:
+      operationId: getUserSchema
+      tags:
+      - Members
+      summary: Get the user schema
+      description: Lists all attributes of the user schema.
+      responses:
+        '200':
+          description: The SCIM user schema.
+          content:
+            application/scim+json:
+              schema:
+                type: object
+components:
+  schemas:
+    ScimUser:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:schemas:core:2.0:User
+        userName:
+          type: string
+        name:
+          type: object
+          properties:
+            givenName:
+              type: string
+            familyName:
+              type: string
+        emails:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              primary:
+                type: boolean
+        active:
+          type: boolean
+        locale:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+      description: 'OAuth 2.0 access token obtained via the Authorization Code grant, passed as `Authorization: Bearer <token>`.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Personal API key passed as `Authorization: ApiKey <key>` for customer (non-partner) integrations.'

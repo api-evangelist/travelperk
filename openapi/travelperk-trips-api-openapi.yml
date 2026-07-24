@@ -1,0 +1,173 @@
+openapi: 3.0.1
+info:
+  title: TravelPerk Cost Centers Trips API
+  description: Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.
+  termsOfService: https://www.travelperk.com/legal/terms-of-service/
+  contact:
+    name: TravelPerk Developer Support
+    url: https://developers.travelperk.com
+  version: '1'
+servers:
+- url: https://api.travelperk.com
+  description: TravelPerk production API
+- url: https://api.sandbox-travelperk.com
+  description: TravelPerk sandbox API
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Trips
+  description: Trips, bookings, and trip custom fields.
+paths:
+  /trips:
+    get:
+      operationId: listTrips
+      tags:
+      - Trips
+      summary: List all trips
+      description: Lists trips in descending order of `modified` time. Filters such as `traveller_id` and trip status may be supplied as query parameters.
+      parameters:
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      - name: traveller_id
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Filter trips by the ID of a traveler on the trip.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A paginated list of trips.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripList'
+  /trips/{id}:
+    get:
+      operationId: getTrip
+      tags:
+      - Trips
+      summary: Retrieve a trip by ID
+      description: Get a single trip with the trip ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: The requested trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '404':
+          description: Trip not found.
+  /trips/{trip_id}/custom-fields:
+    get:
+      operationId: getTripCustomFields
+      tags:
+      - Trips
+      summary: Retrieve custom fields
+      description: Get all custom field values associated with a trip.
+      parameters:
+      - name: trip_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: Api-Version
+        in: header
+        required: true
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Custom field values for the trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomFieldList'
+components:
+  schemas:
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    Trip:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum:
+          - confirmed
+          - cancelled
+        traveller_name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        modified:
+          type: string
+          format: date-time
+    TripList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trip'
+        next:
+          type: string
+    CustomFieldList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+      description: 'OAuth 2.0 access token obtained via the Authorization Code grant, passed as `Authorization: Bearer <token>`.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Personal API key passed as `Authorization: ApiKey <key>` for customer (non-partner) integrations.'
