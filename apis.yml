@@ -8,7 +8,20 @@ description: TravelPerk is a business-travel management platform that lets compa
   expenses, travelers and members, cost centers, scheduled reports, and webhooks
   for real-time travel and finance data exchange with HR systems, ERPs, and
   expense tools.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/travelperk.png
 tags:
 - Business Travel
 - Travel Management
@@ -19,142 +32,196 @@ created: '2026-06-25'
 modified: '2026-06-25'
 specificationVersion: '0.19'
 apis:
-- aid: travelperk:travelperk-bookings-trips-api
-  name: TravelPerk Bookings & Trips API
-  tags:
-  - Bookings
-  - Trips
-  - Travel
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.travelperk.com/reference/introduction-3
-  baseURL: https://api.travelperk.com
-  properties:
-  - url: https://developers.travelperk.com/reference/introduction-3
-    type: Documentation
-  - url: https://developers.travelperk.com/reference/list-all-trips
-    type: APIReference
-  - url: openapi/travelperk-openapi.yml
-    type: OpenAPI
-  - url: collections/travelperk.postman_collection.json
-    type: PostmanCollection
-  - url: collections/travelperk.opencollection.json
-    type: OpenCollection
-  description: Retrieve trips and their bookings - confirmed or canceled flights,
-    hotels, trains, and cars - along with traveler detail and trip custom fields,
-    for syncing travel itineraries into downstream systems.
-- aid: travelperk:travelperk-invoices-api
-  name: TravelPerk Invoices API
-  tags:
-  - Invoices
-  - Billing
-  - Finance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.travelperk.com/reference/list-invoice
-  baseURL: https://api.travelperk.com
-  properties:
-  - url: https://developers.travelperk.com/reference/the-invoice-object
-    type: Documentation
-  - url: https://developers.travelperk.com/reference/list-invoice
-    type: APIReference
-  - url: openapi/travelperk-openapi.yml
-    type: OpenAPI
-  - url: collections/travelperk.postman_collection.json
-    type: PostmanCollection
-  - url: collections/travelperk.opencollection.json
-    type: OpenCollection
-  description: List and retrieve invoices, invoice lines, invoice profiles, and
-    invoice PDFs for accounting, reconciliation, and finance reporting.
-- aid: travelperk:travelperk-expenses-api
-  name: TravelPerk Expenses API
-  tags:
-  - Expenses
-  - Reporting
-  - Finance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
-  baseURL: https://api.travelperk.com
-  properties:
-  - url: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
-    type: Documentation
-  - url: https://developers.travelperk.com/reference/list-invoice-lines-1
-    type: APIReference
-  - url: openapi/travelperk-openapi.yml
-    type: OpenAPI
-  - url: collections/travelperk.postman_collection.json
-    type: PostmanCollection
-  - url: collections/travelperk.opencollection.json
-    type: OpenCollection
-  description: Access invoice and invoice-line data for expense reporting and
-    accounting, mapping travel spend to cost centers and downstream expense tools.
-- aid: travelperk:travelperk-members-api
-  name: TravelPerk Travelers & Members API
-  tags:
-  - Members
-  - Travelers
-  - SCIM
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.travelperk.com/reference/using-the-scim-api-1
-  baseURL: https://api.travelperk.com/scim
-  properties:
-  - url: https://developers.travelperk.com/docs/introduction-1
-    type: Documentation
-  - url: https://developers.travelperk.com/reference/create-a-new-user
-    type: APIReference
-  - url: openapi/travelperk-openapi.yml
-    type: OpenAPI
-  - url: collections/travelperk.postman_collection.json
-    type: PostmanCollection
-  - url: collections/travelperk.opencollection.json
-    type: OpenCollection
-  description: Manage travelers and members via a SCIM 2.0 user provisioning
-    interface - create, read, update, and replace users and read user schemas for
-    IdP-driven sync from HR and identity systems.
 - aid: travelperk:travelperk-cost-centers-api
   name: TravelPerk Cost Centers API
+  description: Cost center management and user assignment.
+  humanURL: https://developers.travelperk.com/reference/introduction-3
+  baseURL: https://api.travelperk.com
   tags:
   - Cost Centers
-  - Allocation
-  - Finance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.travelperk.com/reference/cost-centers
-  baseURL: https://api.travelperk.com
   properties:
-  - url: https://developers.travelperk.com/reference/cost-centers
-    type: Documentation
-  - url: https://developers.travelperk.com/reference/list-cost-centers
-    type: APIReference
-  - url: openapi/travelperk-openapi.yml
-    type: OpenAPI
-  - url: collections/travelperk.postman_collection.json
-    type: PostmanCollection
-  - url: collections/travelperk.opencollection.json
-    type: OpenCollection
-  description: Automatically create, list, retrieve, update, bulk-update, and
-    archive cost centers and assign users to them for allocating travel spend
-    across teams and projects.
+  - type: OpenAPI
+    url: openapi/travelperk-cost-centers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/introduction-3
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-all-trips
+  - type: PostmanCollection
+    url: collections/travelperk.postman_collection.json
+  - type: OpenCollection
+    url: collections/travelperk.opencollection.json
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/the-invoice-object
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice
+  - type: Documentation
+    url: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice-lines-1
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/introduction-1
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/create-a-new-user
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/cost-centers
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-cost-centers
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/subscribing-to-webhooks
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/subscribe-to-event
+- aid: travelperk:travelperk-invoices-api
+  name: TravelPerk Invoices API
+  description: Invoices, invoice lines, invoice profiles, and PDFs.
+  humanURL: https://developers.travelperk.com/reference/introduction-3
+  baseURL: https://api.travelperk.com
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/travelperk-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/introduction-3
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-all-trips
+  - type: PostmanCollection
+    url: collections/travelperk.postman_collection.json
+  - type: OpenCollection
+    url: collections/travelperk.opencollection.json
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/the-invoice-object
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice
+  - type: Documentation
+    url: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice-lines-1
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/introduction-1
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/create-a-new-user
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/cost-centers
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-cost-centers
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/subscribing-to-webhooks
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/subscribe-to-event
+- aid: travelperk:travelperk-members-api
+  name: TravelPerk Members API
+  description: Traveler and member provisioning via SCIM 2.0.
+  humanURL: https://developers.travelperk.com/reference/introduction-3
+  baseURL: https://api.travelperk.com
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/travelperk-members-api-openapi.yml
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/introduction-3
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-all-trips
+  - type: PostmanCollection
+    url: collections/travelperk.postman_collection.json
+  - type: OpenCollection
+    url: collections/travelperk.opencollection.json
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/the-invoice-object
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice
+  - type: Documentation
+    url: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice-lines-1
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/introduction-1
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/create-a-new-user
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/cost-centers
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-cost-centers
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/subscribing-to-webhooks
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/subscribe-to-event
+- aid: travelperk:travelperk-trips-api
+  name: TravelPerk Trips API
+  description: Trips, bookings, and trip custom fields.
+  humanURL: https://developers.travelperk.com/reference/introduction-3
+  baseURL: https://api.travelperk.com
+  tags:
+  - Trips
+  properties:
+  - type: OpenAPI
+    url: openapi/travelperk-trips-api-openapi.yml
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/introduction-3
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-all-trips
+  - type: PostmanCollection
+    url: collections/travelperk.postman_collection.json
+  - type: OpenCollection
+    url: collections/travelperk.opencollection.json
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/the-invoice-object
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice
+  - type: Documentation
+    url: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice-lines-1
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/introduction-1
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/create-a-new-user
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/cost-centers
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-cost-centers
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/subscribing-to-webhooks
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/subscribe-to-event
 - aid: travelperk:travelperk-webhooks-api
   name: TravelPerk Webhooks API
+  description: Event subscriptions.
+  humanURL: https://developers.travelperk.com/reference/introduction-3
+  baseURL: https://api.travelperk.com
   tags:
   - Webhooks
-  - Events
-  - Notifications
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.travelperk.com/docs/subscribing-to-webhooks
-  baseURL: https://api.travelperk.com
   properties:
-  - url: https://developers.travelperk.com/docs/subscribing-to-webhooks
-    type: Documentation
-  - url: https://developers.travelperk.com/reference/subscribe-to-event
-    type: APIReference
-  - url: openapi/travelperk-openapi.yml
-    type: OpenAPI
-  - url: collections/travelperk.postman_collection.json
-    type: PostmanCollection
-  - url: collections/travelperk.opencollection.json
-    type: OpenCollection
-  description: Subscribe to platform events - such as a new invoice or trip change
-    - by creating and updating webhook endpoints that push real-time notifications
-    to your application.
+  - type: OpenAPI
+    url: openapi/travelperk-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/introduction-3
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-all-trips
+  - type: PostmanCollection
+    url: collections/travelperk.postman_collection.json
+  - type: OpenCollection
+    url: collections/travelperk.opencollection.json
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/the-invoice-object
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice
+  - type: Documentation
+    url: https://support.travelperk.com/hc/en-us/articles/360046079392-Getting-the-Expenses-API
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-invoice-lines-1
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/introduction-1
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/create-a-new-user
+  - type: Documentation
+    url: https://developers.travelperk.com/reference/cost-centers
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/list-cost-centers
+  - type: Documentation
+    url: https://developers.travelperk.com/docs/subscribing-to-webhooks
+  - type: APIReference
+    url: https://developers.travelperk.com/reference/subscribe-to-event
 common:
 - type: AgenticAccess
   url: agentic-access/travelperk-agentic-access.yml
