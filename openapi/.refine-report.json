@@ -1,0 +1,22 @@
+{
+  "provider": "travelperk",
+  "sources": [
+    "travelperk-cost-centers-api-openapi.yml",
+    "travelperk-invoices-api-openapi.yml",
+    "travelperk-members-api-openapi.yml",
+    "travelperk-trips-api-openapi.yml",
+    "travelperk-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "travelperk-cost-centers-api-openapi.yml",
+    "travelperk-invoices-api-openapi.yml",
+    "travelperk-members-api-openapi.yml",
+    "travelperk-trips-api-openapi.yml",
+    "travelperk-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
