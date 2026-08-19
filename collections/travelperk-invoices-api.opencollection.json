@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TravelPerk Cost Centers Invoices API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/invoices",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "profile_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of invoices; filters may be added as query parameters. Only invoices issued on or after January 1st 2019 are returned."
+        },
+        {
+          "info": {
+            "name": "Retrieve an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/invoices/:serial_number",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get invoice detail by serial number."
+        },
+        {
+          "info": {
+            "name": "Retrieve invoice PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/invoices/:serial_number/pdf",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download an invoice in PDF format."
+        },
+        {
+          "info": {
+            "name": "List all invoice lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/invoices/lines",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of invoice lines; filters may be added as query parameters. Returns InvoiceLineExtended models. Only invoices issued on or after January 1st 2019 are returned."
+        },
+        {
+          "info": {
+            "name": "List all invoice profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/profiles",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "List all invoice profiles associated with this account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

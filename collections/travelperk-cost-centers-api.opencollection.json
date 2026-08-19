@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TravelPerk Cost Centers API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cost Centers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all cost centers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/cost_centers",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all cost centers in your organization. Returns a paginated list with offset and limit controls."
+        },
+        {
+          "info": {
+            "name": "Create cost center",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.travelperk.com/cost_centers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a cost center with the specified name. You can optionally set an approver, delegate, and delegate expiry date."
+        },
+        {
+          "info": {
+            "name": "Bulk update cost centers",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.travelperk.com/cost_centers/bulk_update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Archives or unarchives a list of cost centers in a single request. Returns the number of cost centers updated."
+        },
+        {
+          "info": {
+            "name": "Get cost center",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/cost_centers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a cost center by its ID, including assigned users, approver, delegate, and company scope."
+        },
+        {
+          "info": {
+            "name": "Update cost center",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.travelperk.com/cost_centers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a cost center. You can update the name, archive status, approver, delegate, and delegate expiry."
+        },
+        {
+          "info": {
+            "name": "Set users to a cost center",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.travelperk.com/cost_centers/:id/users",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all users assigned to the cost center with the provided list. Any users not in the list are removed from the cost center."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

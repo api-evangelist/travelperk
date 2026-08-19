@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TravelPerk Cost Centers Trips API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trips",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all trips",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/trips",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "traveller_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter trips by the ID of a traveler on the trip."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists trips in descending order of `modified` time. Filters such as `traveller_id` and trip status may be supplied as query parameters."
+        },
+        {
+          "info": {
+            "name": "Retrieve a trip by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/trips/:id",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a single trip with the trip ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/trips/:trip_id/custom-fields",
+            "headers": [
+              {
+                "name": "Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "trip_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get all custom field values associated with a trip."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,671 @@
+{
+  "item": [
+    {
+      "id": "aad5efe4-a936-4fe6-a7c2-3e281be246d3",
+      "name": "Cost Centers",
+      "description": {
+        "content": "Cost center management and user assignment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db5a1717-3290-4f79-8cec-c5fe7c39a55c",
+          "name": "List all cost centers",
+          "request": {
+            "name": "List all cost centers",
+            "description": {
+              "content": "Lists all cost centers in your organization. Returns a paginated list with offset and limit controls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e354aff-9804-4cc8-b934-8a9e2c88d760",
+              "name": "A paginated list of cost centers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3621,\n  \"offset\": 1942,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"archived\": false,\n      \"approver_id\": 1417,\n      \"delegate_id\": 9922,\n      \"delegate_expiry\": \"1975-03-12\",\n      \"users\": [\n        8041,\n        4427\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"archived\": true,\n      \"approver_id\": 9957,\n      \"delegate_id\": 6372,\n      \"delegate_expiry\": \"1966-12-20\",\n      \"users\": [\n        7771,\n        9670\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fdb9ebdd-4343-4d81-9357-853926e25ebe",
+          "name": "Create cost center",
+          "request": {
+            "name": "Create cost center",
+            "description": {
+              "content": "Creates a cost center with the specified name. You can optionally set an approver, delegate, and delegate expiry date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"archived\": \"<boolean>\",\n  \"approver_id\": \"<integer>\",\n  \"delegate_id\": \"<integer>\",\n  \"delegate_expiry\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b72455a-d90c-4a7b-bb02-53fb9cc3fdfc",
+              "name": "The created cost center.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"archived\": \"<boolean>\",\n  \"approver_id\": \"<integer>\",\n  \"delegate_id\": \"<integer>\",\n  \"delegate_expiry\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"archived\": true,\n  \"approver_id\": 885,\n  \"delegate_id\": 7611,\n  \"delegate_expiry\": \"1949-05-05\",\n  \"users\": [\n    626,\n    2762\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cea1e5f-e9a9-47b3-bdff-0190087fba65",
+          "name": "Bulk update cost centers",
+          "request": {
+            "name": "Bulk update cost centers",
+            "description": {
+              "content": "Archives or unarchives a list of cost centers in a single request. Returns the number of cost centers updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_centers",
+                "bulk_update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cost_center_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"archived\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7bc03fa2-bb28-4392-bb8c-18ae15d6e9ea",
+              "name": "The number of cost centers updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_centers",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cost_center_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"archived\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"updated\": 5591\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35e86994-2a73-4e2a-87dc-713e0c3480e5",
+          "name": "Get cost center",
+          "request": {
+            "name": "Get cost center",
+            "description": {
+              "content": "Retrieves a cost center by its ID, including assigned users, approver, delegate, and company scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_centers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93e04c6a-5dca-4dea-88e0-33493eca09e8",
+              "name": "The requested cost center.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_centers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"archived\": true,\n  \"approver_id\": 885,\n  \"delegate_id\": 7611,\n  \"delegate_expiry\": \"1949-05-05\",\n  \"users\": [\n    626,\n    2762\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ed4740c-736f-4996-b352-80c3b1d1c6e4",
+          "name": "Update cost center",
+          "request": {
+            "name": "Update cost center",
+            "description": {
+              "content": "Updates a cost center. You can update the name, archive status, approver, delegate, and delegate expiry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_centers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"archived\": \"<boolean>\",\n  \"approver_id\": \"<integer>\",\n  \"delegate_id\": \"<integer>\",\n  \"delegate_expiry\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b7463fe-3d6b-48ac-b1ad-68a5a91c7549",
+              "name": "The updated cost center.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_centers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"archived\": \"<boolean>\",\n  \"approver_id\": \"<integer>\",\n  \"delegate_id\": \"<integer>\",\n  \"delegate_expiry\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"archived\": true,\n  \"approver_id\": 885,\n  \"delegate_id\": 7611,\n  \"delegate_expiry\": \"1949-05-05\",\n  \"users\": [\n    626,\n    2762\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff5c4cc6-32b7-4e2d-ad96-26a0b19a7a3b",
+          "name": "Set users to a cost center",
+          "request": {
+            "name": "Set users to a cost center",
+            "description": {
+              "content": "Replaces all users assigned to the cost center with the provided list. Any users not in the list are removed from the cost center.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_centers",
+                ":id",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84350d8e-b9af-4626-8450-25bcee12f735",
+              "name": "The updated cost center with its user assignments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_centers",
+                    ":id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"archived\": true,\n  \"approver_id\": 885,\n  \"delegate_id\": 7611,\n  \"delegate_expiry\": \"1949-05-05\",\n  \"users\": [\n    626,\n    2762\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.travelperk.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "166af59a-429e-42f8-be5b-0298e557e5fd",
+    "name": "TravelPerk Cost Centers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.\n\nContact Support:\n Name: TravelPerk Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

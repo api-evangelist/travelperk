@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TravelPerk Cost Centers Members API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.travelperk.com/scim/Users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user (traveler/member) in TravelPerk via SCIM 2.0."
+        },
+        {
+          "info": {
+            "name": "Replace a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.travelperk.com/scim/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all of a user's attributes."
+        },
+        {
+          "info": {
+            "name": "Update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.travelperk.com/scim/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates attributes for an existing user, overwriting values for specified attributes. Attributes not provided remain unchanged."
+        },
+        {
+          "info": {
+            "name": "Get the user schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.travelperk.com/scim/Schemas/User"
+          },
+          "docs": "Lists all attributes of the user schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
