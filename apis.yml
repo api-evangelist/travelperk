@@ -190,6 +190,8 @@ apis:
   humanURL: https://developers.travelperk.com/reference/introduction-3
   baseURL: https://api.travelperk.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
