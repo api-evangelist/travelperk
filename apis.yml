@@ -8,6 +8,18 @@ description: TravelPerk is a business-travel management platform that lets compa
   expenses, travelers and members, cost centers, scheduled reports, and webhooks
   for real-time travel and finance data exchange with HR systems, ERPs, and
   expense tools.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
