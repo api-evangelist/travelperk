@@ -41,6 +41,12 @@ tags:
 - Travel Management
 - Expenses
 - Invoices
+- Booking
+tags_raw:
+- Business Travel
+- Travel Management
+- Expenses
+- Invoices
 - Bookings
 created: '2026-06-25'
 modified: '2026-06-25'
