@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: TravelPerk Cost Centers Invoices API
+  title: TravelPerk Invoices API
   description: Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.
   termsOfService: https://www.travelperk.com/legal/terms-of-service/
   contact:
@@ -164,19 +164,6 @@ paths:
                   $ref: '#/components/schemas/InvoiceProfile'
 components:
   schemas:
-    InvoiceList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-        next:
-          type: string
     InvoiceLineList:
       type: object
       properties:
@@ -201,18 +188,18 @@ components:
           type: string
         vat_number:
           type: string
-    InvoiceLine:
+    InvoiceList:
       type: object
       properties:
-        serial_number:
-          type: string
-        service:
-          type: string
-        quantity:
-          type: number
-        unit_price:
-          type: string
-        tax:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        next:
           type: string
     Invoice:
       type: object
@@ -241,6 +228,19 @@ components:
         pdf:
           type: string
           format: uri
+    InvoiceLine:
+      type: object
+      properties:
+        serial_number:
+          type: string
+        service:
+          type: string
+        quantity:
+          type: number
+        unit_price:
+          type: string
+        tax:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

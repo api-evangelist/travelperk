@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: TravelPerk Cost Centers Trips API
+  title: TravelPerk Trips API
   description: Specification of the TravelPerk Open API. TravelPerk is a business-travel management platform; its REST API exposes trips and bookings, invoices and invoice lines, invoice profiles, cost centers, traveler/member provisioning (SCIM 2.0), and webhooks. Requests are authenticated with an OAuth 2.0 access token (or API key) passed in the Authorization header, and an `Api-Version` header selects the API version.
   termsOfService: https://www.travelperk.com/legal/terms-of-service/
   contact:
@@ -112,13 +112,6 @@ paths:
                 $ref: '#/components/schemas/CustomFieldList'
 components:
   schemas:
-    CustomField:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
     Trip:
       type: object
       properties:
@@ -140,6 +133,20 @@ components:
         modified:
           type: string
           format: date-time
+    CustomFieldList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
     TripList:
       type: object
       properties:
@@ -153,13 +160,6 @@ components:
             $ref: '#/components/schemas/Trip'
         next:
           type: string
-    CustomFieldList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField'
   securitySchemes:
     bearerAuth:
       type: http

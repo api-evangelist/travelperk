@@ -1,11 +1,7 @@
 {
   "provider": "travelperk",
   "sources": [
-    "travelperk-cost-centers-api-openapi.yml",
-    "travelperk-invoices-api-openapi.yml",
-    "travelperk-members-api-openapi.yml",
-    "travelperk-trips-api-openapi.yml",
-    "travelperk-webhooks-api-openapi.yml"
+    "_original/travelperk-openapi.yml"
   ],
   "outputs": [
     "travelperk-cost-centers-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "travelperk-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "travelperk-cost-centers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "travelperk-invoices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "travelperk-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "travelperk-trips-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "travelperk-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
