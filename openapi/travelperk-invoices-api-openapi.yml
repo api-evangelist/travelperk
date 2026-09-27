@@ -177,30 +177,6 @@ components:
             $ref: '#/components/schemas/InvoiceLine'
         next:
           type: string
-    InvoiceProfile:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        legal_name:
-          type: string
-        vat_number:
-          type: string
-    InvoiceList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-        next:
-          type: string
     Invoice:
       type: object
       properties:
@@ -228,6 +204,30 @@ components:
         pdf:
           type: string
           format: uri
+    InvoiceList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        next:
+          type: string
+    InvoiceProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        legal_name:
+          type: string
+        vat_number:
+          type: string
     InvoiceLine:
       type: object
       properties:

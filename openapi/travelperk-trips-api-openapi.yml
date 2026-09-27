@@ -140,13 +140,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomField'
-    CustomField:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
     TripList:
       type: object
       properties:
@@ -159,6 +152,13 @@ components:
           items:
             $ref: '#/components/schemas/Trip'
         next:
+          type: string
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
           type: string
   securitySchemes:
     bearerAuth:
