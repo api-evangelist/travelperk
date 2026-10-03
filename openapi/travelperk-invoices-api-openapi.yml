@@ -164,19 +164,6 @@ paths:
                   $ref: '#/components/schemas/InvoiceProfile'
 components:
   schemas:
-    InvoiceLineList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceLine'
-        next:
-          type: string
     Invoice:
       type: object
       properties:
@@ -204,19 +191,6 @@ components:
         pdf:
           type: string
           format: uri
-    InvoiceList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-        next:
-          type: string
     InvoiceProfile:
       type: object
       properties:
@@ -240,6 +214,32 @@ components:
         unit_price:
           type: string
         tax:
+          type: string
+    InvoiceList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        next:
+          type: string
+    InvoiceLineList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLine'
+        next:
           type: string
   securitySchemes:
     bearerAuth:

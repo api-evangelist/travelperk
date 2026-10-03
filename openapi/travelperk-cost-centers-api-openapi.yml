@@ -171,6 +171,17 @@ paths:
                 $ref: '#/components/schemas/CostCenter'
 components:
   schemas:
+    CostCenterList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostCenter'
     CostCenter:
       type: object
       properties:
@@ -207,17 +218,6 @@ components:
         delegate_expiry:
           type: string
           format: date
-    CostCenterList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostCenter'
   securitySchemes:
     bearerAuth:
       type: http
