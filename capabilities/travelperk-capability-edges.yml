@@ -1,0 +1,34 @@
+slug: travelperk
+provider: TravelPerk
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Webhooks
+  spec_file: travelperk-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.85
+  evidence: POST /webhooks createWebhook Create a webhook endpoint
+  reason: Creation and update of outbound webhook endpoints for real-time event delivery matches Webhook
+    & Event Subscription Management.
+- tag: Members
+  spec_file: travelperk-members-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /scim/Users createScimUser; GET /scim/Schemas/User getUserSchema
+  reason: SCIM 2.0 user provisioning of members/travelers is identity lifecycle provisioning. Could alternatively
+    be tenant identity federation (BC-4230.50), but Identity & Access Management is the safer, directly
+    evidenced reading.

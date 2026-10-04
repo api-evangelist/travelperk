@@ -245,6 +245,9 @@ apis:
   - type: APIReference
     url: https://developers.travelperk.com/reference/subscribe-to-event
 common:
+- type: CapabilityMap
+  url: capabilities/travelperk-capability-edges.yml
+  name: TravelPerk Business Capability Map
 - type: AgenticAccess
   url: agentic-access/travelperk-agentic-access.yml
 - type: VulnerabilityDisclosure
