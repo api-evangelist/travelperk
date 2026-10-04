@@ -84,22 +84,6 @@ paths:
           description: A subscription with this target URL already exists.
 components:
   schemas:
-    Webhook:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
-        status:
-          type: string
     WebhookInput:
       type: object
       required:
@@ -128,6 +112,22 @@ components:
           enum:
           - enabled
           - disabled
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

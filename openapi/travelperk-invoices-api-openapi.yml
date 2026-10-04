@@ -164,6 +164,56 @@ paths:
                   $ref: '#/components/schemas/InvoiceProfile'
 components:
   schemas:
+    InvoiceLine:
+      type: object
+      properties:
+        serial_number:
+          type: string
+        service:
+          type: string
+        quantity:
+          type: number
+        unit_price:
+          type: string
+        tax:
+          type: string
+    InvoiceList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        next:
+          type: string
+    InvoiceProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        legal_name:
+          type: string
+        vat_number:
+          type: string
+    InvoiceLineList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLine'
+        next:
+          type: string
     Invoice:
       type: object
       properties:
@@ -191,56 +241,6 @@ components:
         pdf:
           type: string
           format: uri
-    InvoiceProfile:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        legal_name:
-          type: string
-        vat_number:
-          type: string
-    InvoiceLine:
-      type: object
-      properties:
-        serial_number:
-          type: string
-        service:
-          type: string
-        quantity:
-          type: number
-        unit_price:
-          type: string
-        tax:
-          type: string
-    InvoiceList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-        next:
-          type: string
-    InvoiceLineList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceLine'
-        next:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
