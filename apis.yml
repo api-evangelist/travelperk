@@ -49,7 +49,7 @@ tags_raw:
 - Invoices
 - Bookings
 created: '2026-06-25'
-modified: '2026-06-25'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: travelperk:travelperk-cost-centers-api
@@ -245,6 +245,8 @@ apis:
   - type: APIReference
     url: https://developers.travelperk.com/reference/subscribe-to-event
 common:
+- url: https://www.perk.com/blog/
+  type: Blog
 - type: CapabilityMap
   url: capabilities/travelperk-capability-edges.yml
   name: TravelPerk Business Capability Map
