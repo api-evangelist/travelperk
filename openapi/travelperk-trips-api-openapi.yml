@@ -112,6 +112,33 @@ paths:
                 $ref: '#/components/schemas/CustomFieldList'
 components:
   schemas:
+    TripList:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trip'
+        next:
+          type: string
+    CustomFieldList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
     Trip:
       type: object
       properties:
@@ -133,33 +160,6 @@ components:
         modified:
           type: string
           format: date-time
-    TripList:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Trip'
-        next:
-          type: string
-    CustomField:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-    CustomFieldList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField'
   securitySchemes:
     bearerAuth:
       type: http

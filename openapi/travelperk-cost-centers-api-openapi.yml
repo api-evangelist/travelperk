@@ -171,22 +171,17 @@ paths:
                 $ref: '#/components/schemas/CostCenter'
 components:
   schemas:
-    CostCenterInput:
+    CostCenterList:
       type: object
-      required:
-      - name
       properties:
-        name:
-          type: string
-        archived:
-          type: boolean
-        approver_id:
+        total:
           type: integer
-        delegate_id:
+        offset:
           type: integer
-        delegate_expiry:
-          type: string
-          format: date
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostCenter'
     CostCenter:
       type: object
       properties:
@@ -207,17 +202,22 @@ components:
           type: array
           items:
             type: integer
-    CostCenterList:
+    CostCenterInput:
       type: object
+      required:
+      - name
       properties:
-        total:
+        name:
+          type: string
+        archived:
+          type: boolean
+        approver_id:
           type: integer
-        offset:
+        delegate_id:
           type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostCenter'
+        delegate_expiry:
+          type: string
+          format: date
   securitySchemes:
     bearerAuth:
       type: http
