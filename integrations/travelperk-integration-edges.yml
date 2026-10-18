@@ -2,6 +2,7 @@ generated: '2026-10-14'
 method: searched
 checked:
 - bamboohr/integrations/bamboohr-integration-edges.yml
+- google-workspace/integrations/google-workspace-integration-edges.yml
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
 source:
@@ -54,3 +55,20 @@ edges:
     builder: unknown (community connector; contributor not in the record)
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/travelperk/1029628525364
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - TravelPerk
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
